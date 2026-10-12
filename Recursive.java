@@ -78,7 +78,16 @@ public class Recursive {
             throw new IllegalArgumentException("Failed precondition: "
                     + "revString. parameter may not be null.");
         }
-        return ""; // dummy return, replace as necessary
+
+        int length = stringToRev.length();
+        // base case
+        if (length == 0) {
+            return "";
+        }
+        if (length == 1) {
+            return stringToRev;
+        }
+        return stringToRev.substring(length - 1) + revString(stringToRev.substring(0, length - 1));
     }
 
     /**
@@ -95,13 +104,26 @@ public class Recursive {
      */
     public static int nextIsDouble(int[] data) {
         if (data == null) {
-            throw new IllegalArgumentException("Failed precondition: "
-                    + "nextIsDouble. parameter may not be null.");
+            throw new IllegalArgumentException(
+                    "nextIsDouble parameter may not be null.");
         }
-        return 0; // Change as necessary. Write a helper method.
+
+        return doubleHelper(data, 0);
     }
 
-    // CS314 students, add your nextIsDouble helper method here
+    private static int doubleHelper(int[] data, int index) {
+        if (index >= data.length - 1) {
+            return 0;
+        }
+
+        int count = 0;
+
+        if (data[index + 1] % 2 == 0 && data[index + 1] / 2 == data[index]) {
+            count = 1;
+        }
+
+        return count + doubleHelper(data, index + 1);
+    }
 
     /**
      * Problem 4: Find all combinations of mnemonics
