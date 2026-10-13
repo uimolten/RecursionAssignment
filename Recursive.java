@@ -254,6 +254,7 @@ public class Recursive {
     private static void drawSquares(Graphics g, int size, int limit,
             double x, double y) {
         if (size <= limit) {
+            g.fillRect((int)x, (int)y, size, size);
             return;
         }
         g.fillRect(size / 3, size / 3, (int) size / 3, (int) size / 3);
@@ -272,6 +273,17 @@ public class Recursive {
                 drawSquares(g, size, limit, i, j);
             }
         }
+
+        /*
+         * New idea: base case is size<= limit (What we alread had)
+         * - create the smaller version of the size before iteration
+         * - loop over rows where i and j start at 0, the same way a reg. 2darray would loop
+         * through the first 9 values (i is less than 3, j less than 3)
+         * - in loop check if at center. if yes, change x and y to smaller version w/ x + (i times
+         * the current size) same with y but j
+         * - call recursive function with new x and y.
+         * */
+
 
     }
 
