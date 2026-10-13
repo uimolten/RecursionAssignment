@@ -158,6 +158,15 @@ public class Recursive {
             String mnemonicSoFar, String digitsLeft) {
 
         // CS314 students, complete this method
+        if (digitsLeft.length() == 0) {
+            mnemonics.add(mnemonicSoFar);
+            return;
+        }
+        String temp = digitLetters(digitsLeft.charAt(0));
+
+        for (int i = 0; i < temp.length(); i++) {
+            recursiveMnemonics(mnemonics, mnemonicSoFar + temp.charAt(i), digitsLeft.substring(1));
+        }
     }
 
     /*
@@ -244,6 +253,25 @@ public class Recursive {
      */
     private static void drawSquares(Graphics g, int size, int limit,
             double x, double y) {
+        if (size <= limit) {
+            return;
+        }
+        g.fillRect(size / 3, size / 3, (int) size / 3, (int) size / 3);
+        size /= 3;
+        // g.fillRect(size / 3, size / 3, (int) size / 3, (int) size / 3);
+        // g.fillRect(size + size / 3, size / 3, (int) size / 3, (int) size / 3);
+        // g.fillRect(size + size + size / 3, size / 3, (int) size / 3, (int) size / 3);
+        // g.fillRect(size / 3, size + size / 3, (int) size / 3, (int) size / 3);
+        // g.fillRect(size + size + size / 3, size + size / 3, (int) size / 3, (int)
+        // size / 3);
+
+        for (int i = size / 3; i < 3 * size; i += size) {
+            System.out.print(i + " ");
+            for (int j = size / 3; j < 3 * size; j += size) {
+                g.fillRect(i, j, (int) size / 3, (int) size / 3);
+                drawSquares(g, size, limit, i, j);
+            }
+        }
 
     }
 
