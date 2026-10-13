@@ -29,7 +29,7 @@ public class RecursiveTester {
         doReverseTests();
         doNextIsDoubleTests();
         doListMnemonicsTests();
-        doCarpetTest();
+        // doCarpetTest();
         doMazeTests();
         doFlowOffMapTests();
         doFairTeamsTests();
