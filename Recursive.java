@@ -299,21 +299,28 @@ public class Recursive {
 
         // base case, if the current drop is at the border, return true since it can
         // flow off edge.
-        if (row == 0 || col == 0 || row == map.length - 1 || col == map[0].length) {
+        if (row == 0 || col == 0 || row == map.length - 1 || col == map[0].length - 1) {
             return true;
         }
+        if (isDirectionSafe(map, row, col, 1, 0)) {
+            System.out.println("Currently at " + row + " , " + col);
 
-        if (isDirectionSafe(map, row, col, row + 1, col)) {
-            canFlowOffMap(map, 1, 0);
+            return canFlowOffMap(map, row + 1, col);
         }
-        if (isDirectionSafe(map, row, col, row - 1, col)) {
-            canFlowOffMap(map, -1, 0);
+        if (isDirectionSafe(map, row, col, -1, 0)) {
+            System.out.println("Currently at " + row + " , " + col);
+
+            return canFlowOffMap(map, row - 1, col);
         }
-        if (isDirectionSafe(map, row, col, row, col + 1)) {
-            canFlowOffMap(map, 0, 1);
+        if (isDirectionSafe(map, row, col, 0, 1)) {
+            System.out.println("Currently at " + row + " , " + col);
+
+            return canFlowOffMap(map, row, col + 1);
         }
-        if (isDirectionSafe(map, row, col, row, col - 1)) {
-            canFlowOffMap(map, 0, -1);
+        if (isDirectionSafe(map, row, col, 0, -1)) {
+            System.out.println("Currently at " + row + " , " + col);
+
+            return canFlowOffMap(map, row, col - 1);
         }
 
         return false; // Change as necessary.
@@ -322,7 +329,8 @@ public class Recursive {
     private static boolean isDirectionSafe(int[][] map, int row, int col, int rowChange, int colChange) {
         int r = row + rowChange;
         int c = col + colChange;
-        if (map[row][col] <= map[r][c]) {
+        if (map[row][col] > map[r][c]) {
+            System.out.println("Currently going to " + r + " , " + c);
             return true;
         }
         return false;
