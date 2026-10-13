@@ -253,26 +253,20 @@ public class Recursive {
      */
     private static void drawSquares(Graphics g, int size, int limit,
             double x, double y) {
-        if (size <= limit) {
-            g.fillRect((int)x, (int)y, size, size);
-            return;
-        }
-        g.fillRect(size / 3, size / 3, (int) size / 3, (int) size / 3);
-        size /= 3;
-        // g.fillRect(size / 3, size / 3, (int) size / 3, (int) size / 3);
-        // g.fillRect(size + size / 3, size / 3, (int) size / 3, (int) size / 3);
-        // g.fillRect(size + size + size / 3, size / 3, (int) size / 3, (int) size / 3);
-        // g.fillRect(size / 3, size + size / 3, (int) size / 3, (int) size / 3);
-        // g.fillRect(size + size + size / 3, size + size / 3, (int) size / 3, (int)
-        // size / 3);
-
-        for (int i = size / 3; i < 3 * size; i += size) {
-            System.out.print(i + " ");
-            for (int j = size / 3; j < 3 * size; j += size) {
-                g.fillRect(i, j, (int) size / 3, (int) size / 3);
-                drawSquares(g, size, limit, i, j);
+        if (size > limit) {
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if (i == 1 && j == 1) {
+                        //at the center, fill rectangle
+                        g.fillRect((int) x + (i*size/3), (int) y + (j*size/3), size/3, size/3);
+                    }
+                    drawSquares(g, size/3, limit,  x + (i*size/3), y + (j*size/3) );
+                }
             }
         }
+
+
+
 
         /*
          * New idea: base case is size<= limit (What we alread had)
