@@ -296,7 +296,36 @@ public class Recursive {
             throw new IllegalArgumentException("Failed precondition: "
                     + "canFlowOffMap");
         }
-        return true; // Change as necessary.
+
+        // base case, if the current drop is at the border, return true since it can
+        // flow off edge.
+        if (row == 0 || col == 0 || row == map.length - 1 || col == map[0].length) {
+            return true;
+        }
+
+        if (isDirectionSafe(map, row, col, row + 1, col)) {
+            canFlowOffMap(map, 1, 0);
+        }
+        if (isDirectionSafe(map, row, col, row - 1, col)) {
+            canFlowOffMap(map, -1, 0);
+        }
+        if (isDirectionSafe(map, row, col, row, col + 1)) {
+            canFlowOffMap(map, 0, 1);
+        }
+        if (isDirectionSafe(map, row, col, row, col - 1)) {
+            canFlowOffMap(map, 0, -1);
+        }
+
+        return false; // Change as necessary.
+    }
+
+    private static boolean isDirectionSafe(int[][] map, int row, int col, int rowChange, int colChange) {
+        int r = row + rowChange;
+        int c = col + colChange;
+        if (map[row][col] <= map[r][c]) {
+            return true;
+        }
+        return false;
     }
 
     /*
