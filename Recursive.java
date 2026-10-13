@@ -253,33 +253,21 @@ public class Recursive {
      */
     private static void drawSquares(Graphics g, int size, int limit,
             double x, double y) {
+        final int SQUARE_BOUND = 3; // We used 3 as our magic number because each square is divided into 3x3s, so we
+                                    // would need to divide size by 3
         if (size > limit) {
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
+            for (int i = 0; i < SQUARE_BOUND; i++) {
+                for (int j = 0; j < SQUARE_BOUND; j++) {
+                    int newX = (int) x + (i * size / SQUARE_BOUND);
+                    int newY = (int) y + (j * size / SQUARE_BOUND);
                     if (i == 1 && j == 1) {
-                        //at the center, fill rectangle
-                        g.fillRect((int) x + (i*size/3), (int) y + (j*size/3), size/3, size/3);
+                        // at the center, fill rectangle
+                        g.fillRect(newX, newY, size / SQUARE_BOUND, size / SQUARE_BOUND);
                     }
-                    drawSquares(g, size/3, limit,  x + (i*size/3), y + (j*size/3) );
+                    drawSquares(g, size / 3, limit, (double) newX, (double) newY);
                 }
             }
         }
-
-
-
-
-        /*
-         * New idea: base case is size<= limit (What we alread had)
-         * - create the smaller version of the size before iteration
-         * - loop over rows where i and j start at 0, the same way a reg. 2darray would loop
-         * through the first 9 values (i is less than 3, j less than 3)
-         * - in loop check if at center. if yes, change x and y to smaller version w/ x + (i times
-         * the current size) same with y but j
-         * - call recursive function with new x and y.
-         * */
-
-        //TEST PUSH
-
 
     }
 
