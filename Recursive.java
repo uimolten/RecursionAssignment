@@ -395,7 +395,51 @@ public class Recursive {
      *         ability. The return value will be greater than or equal to 0.
      */
     public static int minDifference(int numTeams, int[] abilities) {
-        return -1;
+        int[][] teamStats = new int[2][numTeams];
+
+        return differenceHelper(0, numTeams, abilities, teamStats);
+    }
+
+    private static int differenceHelper(int index, int numTeams, int[] abilities, int[][] teamStats) {
+        int bestDifference = Integer.MAX_VALUE;
+        // base case
+        if (index == abilities.length) {
+            int max = Integer.MIN_VALUE;
+            int min = Integer.MAX_VALUE;
+
+            // check if every team has a person
+            for (int i = 0; i < numTeams; i++) {
+                if (teamStats[1][i] < 1) {
+                    return Integer.MAX_VALUE;
+                }
+            }
+            // calcualte the bestDifference
+            for (int i = 0; i < numTeams; i++) {
+                if (teamStats[0][i] > max) {
+                    max = teamStats[0][i];
+                }
+                if (teamStats[0][i] < min) {
+                    min = teamStats[0][i];
+                }
+
+                bestDifference = max - min;
+            }
+            return bestDifference;
+
+        }
+
+        for (int i = 0; i < numTeams; i++) {
+            teamStats[0][i] += abilities[index];
+            teamStats[1][i]++;
+            int result = differenceHelper(index + 1, numTeams, abilities, teamStats);
+            if (result < bestDifference) {
+                bestDifference = result;
+            }
+            teamStats[0][i] -= abilities[index];
+            teamStats[1][i]--;
+        }
+        return bestDifference;
+
     }
 
     /**
