@@ -470,7 +470,7 @@ public class Recursive {
         int sRow = -1;
         int sCol = -1;
         boolean containsExit;
-        int coinCount = 0;
+        int totalCoinCount = 0;
         for (int r = 0; r < rawMaze.length; r++) {
             for (int c = 0; c < rawMaze[0].length; r++) {
                 if (rawMaze[r][c] == 'S') {
@@ -481,7 +481,7 @@ public class Recursive {
                     containsExit = true;
                 }
                 if (rawMaze[r][c] == 'C') {
-                    coinCount++;
+                    totalCoinCount++;
                 }
             }
         }
