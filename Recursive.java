@@ -480,12 +480,33 @@ public class Recursive {
                 if (rawMaze[r][c] == 'E') {
                     containsExit = true;
                 }
-                if (rawMaze[r][c] == 'C') {
+                if (rawMaze[r][c] == '$') {
                     totalCoinCount++;
                 }
             }
         }
 
         return -1;
+    }
+
+    private static int mazeHelper(char[][] rawMaze, int r, int c, boolean containsExit, int totalCoinCount) {
+        int coinCount = 0;
+        if (rawMaze[r][c] == 'E') {
+            return totalCoinCount == coinCount ? 2 : 1;
+        }
+
+        if (!containsExit) {
+            return 0;
+        }
+
+    }
+
+    private static boolean isMazeDirectionSafe(int[][] maze, int row, int col, int rowChange, int colChange) {
+        int r = row + rowChange;
+        int c = col + colChange;
+        if (maze[r][c] == 'G' || maze[r][c] == 'Y' || maze[r][c] == '$' || maze[r][c] == 'E') {
+            return true;
+        }
+        return false;
     }
 }
