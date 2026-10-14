@@ -466,6 +466,26 @@ public class Recursive {
      * @return per the post condition
      */
     public static int canEscapeMaze(char[][] rawMaze) {
+        // search for start
+        int sRow = -1;
+        int sCol = -1;
+        boolean containsExit;
+        int coinCount = 0;
+        for (int r = 0; r < rawMaze.length; r++) {
+            for (int c = 0; c < rawMaze[0].length; r++) {
+                if (rawMaze[r][c] == 'S') {
+                    sRow = r;
+                    sCol = c;
+                }
+                if (rawMaze[r][c] == 'E') {
+                    containsExit = true;
+                }
+                if (rawMaze[r][c] == 'C') {
+                    coinCount++;
+                }
+            }
+        }
+
         return -1;
     }
 }
