@@ -93,16 +93,68 @@ public class RecursiveTester {
             System.out.println("Passed test 6");
         }
 
-
+        //tests 7 & 8 - listMnemonics
         System.out.println("\nTest 7 - listMnemonics(String number) method");
-        intExpected = 1;
-        System.out.println(Recursive.listMnemonics("2334"));
-        if (Recursive.nextIsDouble(arrayOfInts) == intExpected) {
+        ArrayList<String> expectedMnemonics = new ArrayList<>();
+        String[] combinations = {"AD", "AE", "AF", "BD", "BE", "BF", "CD", "CE", "CF"};
+        for(String c : combinations) {
+            expectedMnemonics.add(c);
+        }
+        ArrayList<String> actualMnemonics = Recursive.listMnemonics("23");
+        if (actualMnemonics.size() == expectedMnemonics.size() && actualMnemonics.containsAll(expectedMnemonics)) {
             System.out.println("Passed test 7");
         } else {
             System.out.println("Passed test 7");
         }
 
+        System.out.println("\nTest 8 - listMnemonics(String number) method");
+        expectedMnemonics = new ArrayList<>();
+        combinations = new String[] {"PW", "PX", "PY", "PZ", "QW", "QX", "QY", "QZ",
+                "RW", "RX", "RY", "RZ", "SW", "SX", "SY", "SZ"};
+        for(String c : combinations) {
+            expectedMnemonics.add(c);
+        }
+        actualMnemonics = Recursive.listMnemonics("79");
+        if (actualMnemonics.size() == expectedMnemonics.size() && actualMnemonics.containsAll(expectedMnemonics)) {
+            System.out.println("Passed test 8");
+        } else {
+            System.out.println("Passed test 8");
+        }
+
+        // Test 9 & 10 - canFlowOffMap
+        System.out.println("\nTest 9 - canFlowOffMap(int[][] map, int row, int col)");
+        int[][] studentWorld = {
+                { 67, 67, 66, 67, 67, 67 },
+                { 67, 67, 65, 67, 67, 67 },
+                { 67, 67, 64, 63, 62, 67 },
+                { 67, 67, 67, 67, 61, 67 },
+                { 67, 67, 23, 59, 60, 67 },
+                { 67, 67, 57, 58, 67, 67 },
+                { 67, 55, 56, 67, 67, 67 },
+                { 67, 54, 67, 67, 67, 67 }
+        };
+
+        if (Recursive.canFlowOffMap(studentWorld, 2, 1)) {
+            System.out.println("Passed test 9");
+        } else {
+            System.out.println("Failed test 9");
+        }
+
+        System.out.println("\nTest 10 - canFlowOffMap(int[][] map, int row, int col)");
+        studentWorld = new int[][] {
+                {5, 5 ,5},
+                {5, 0, 5},
+                {5, 5, 5}
+        };
+
+        if (!Recursive.canFlowOffMap(studentWorld, 1, 1)) {
+            System.out.println("Passed test 10");
+        } else {
+            System.out.println("Failed test 10");
+        }
+
+        //TODO: Rion you can do test cases for fair teams and maze solver (I dont think we check
+        // sierpenski
 
 
         
