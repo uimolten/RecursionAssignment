@@ -487,12 +487,12 @@ public class Recursive {
                 }
             }
         }
-
-        return mazeHelper(rawMaze, sRow, sCol, containsExit, totalCoinCount);
+        // initiate recursion
+        return mazeHelper(rawMaze, sRow, sCol, containsExit, totalCoinCount, 0);
     }
 
-    private static int mazeHelper(char[][] rawMaze, int r, int c, boolean containsExit, int totalCoinCount) {
-        int coinCount = 0;
+    private static int mazeHelper(char[][] rawMaze, int r, int c, boolean containsExit, int totalCoinCount,
+            int coinCount) {
         int bestPath = 0;
         if (rawMaze[r][c] == 'E') {
             bestPath = totalCoinCount == coinCount ? 2 : 1;
@@ -502,30 +502,33 @@ public class Recursive {
         if (!containsExit) {
             return 0;
         }
+        if (rawMaze[r][c] == '$') {
+            coinCount++;
+        }
 
         // check directions recursively
         if (isMazeDirectionSafe(rawMaze, r, c, 1, 0)) {
             char org = rawMaze[r][c];
             rawMaze[r][c] = changeVisited(org);
-            bestPath = mazeHelper(rawMaze, r + 1, c, containsExit, totalCoinCount);
+            bestPath = Math.max(mazeHelper(rawMaze, r + 1, c, containsExit, totalCoinCount, coinCount), bestPath);
             rawMaze[r][c] = org;
         }
         if (isMazeDirectionSafe(rawMaze, r, c, -1, 0)) {
             char org = rawMaze[r][c];
             rawMaze[r][c] = changeVisited(org);
-            bestPath = mazeHelper(rawMaze, r - 1, c, containsExit, totalCoinCount);
+            bestPath = Math.max(mazeHelper(rawMaze, r - 1, c, containsExit, totalCoinCount, coinCount), bestPath);
             rawMaze[r][c] = org;
         }
         if (isMazeDirectionSafe(rawMaze, r, c, 0, 1)) {
             char org = rawMaze[r][c];
             rawMaze[r][c] = changeVisited(org);
-            bestPath = mazeHelper(rawMaze, r, c + 1, containsExit, totalCoinCount);
+            bestPath = Math.max(mazeHelper(rawMaze, r, c + 1, containsExit, totalCoinCount, coinCount), bestPath);
             rawMaze[r][c] = org;
         }
         if (isMazeDirectionSafe(rawMaze, r, c, 0, -1)) {
             char org = rawMaze[r][c];
             rawMaze[r][c] = changeVisited(org);
-            bestPath = mazeHelper(rawMaze, r, c - 1, containsExit, totalCoinCount);
+            bestPath = Math.max(mazeHelper(rawMaze, r, c - 1, containsExit, totalCoinCount, coinCount), bestPath);
             rawMaze[r][c] = org;
         }
 
