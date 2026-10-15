@@ -469,10 +469,12 @@ public class Recursive {
         // search for start
         int sRow = -1;
         int sCol = -1;
-        boolean containsExit;
+        boolean containsExit = false;
         int totalCoinCount = 0;
+
+        // preprocessing
         for (int r = 0; r < rawMaze.length; r++) {
-            for (int c = 0; c < rawMaze[0].length; r++) {
+            for (int c = 0; c < rawMaze[0].length; c++) {
                 if (rawMaze[r][c] == 'S') {
                     sRow = r;
                     sCol = c;
@@ -486,27 +488,76 @@ public class Recursive {
             }
         }
 
-        return -1;
+        return mazeHelper(rawMaze, sRow, sCol, containsExit, totalCoinCount);
     }
 
     private static int mazeHelper(char[][] rawMaze, int r, int c, boolean containsExit, int totalCoinCount) {
         int coinCount = 0;
+        int bestPath = 0;
         if (rawMaze[r][c] == 'E') {
-            return totalCoinCount == coinCount ? 2 : 1;
+            bestPath = totalCoinCount == coinCount ? 2 : 1;
+            return bestPath;
         }
 
         if (!containsExit) {
             return 0;
         }
 
+        // check directions recursively
+        if (isMazeDirectionSafe(rawMaze, r, c, 1, 0)) {
+            char org = rawMaze[r][c];
+            rawMaze[r][c] = changeVisited(org);
+            bestPath = mazeHelper(rawMaze, r + 1, c, containsExit, totalCoinCount);
+            rawMaze[r][c] = org;
+        }
+        if (isMazeDirectionSafe(rawMaze, r, c, -1, 0)) {
+            char org = rawMaze[r][c];
+            rawMaze[r][c] = changeVisited(org);
+            bestPath = mazeHelper(rawMaze, r - 1, c, containsExit, totalCoinCount);
+            rawMaze[r][c] = org;
+        }
+        if (isMazeDirectionSafe(rawMaze, r, c, 0, 1)) {
+            char org = rawMaze[r][c];
+            rawMaze[r][c] = changeVisited(org);
+            bestPath = mazeHelper(rawMaze, r, c + 1, containsExit, totalCoinCount);
+            rawMaze[r][c] = org;
+        }
+        if (isMazeDirectionSafe(rawMaze, r, c, 0, -1)) {
+            char org = rawMaze[r][c];
+            rawMaze[r][c] = changeVisited(org);
+            bestPath = mazeHelper(rawMaze, r, c - 1, containsExit, totalCoinCount);
+            rawMaze[r][c] = org;
+        }
+
+        return bestPath;
     }
 
-    private static boolean isMazeDirectionSafe(int[][] maze, int row, int col, int rowChange, int colChange) {
+    private static boolean isMazeDirectionSafe(char[][] maze, int row, int col, int rowChange, int colChange) {
         int r = row + rowChange;
         int c = col + colChange;
+        if (r >= maze.length || c >= maze[0].length || r < 0 || c < 0) {
+            return false;
+        }
         if (maze[r][c] == 'G' || maze[r][c] == 'Y' || maze[r][c] == '$' || maze[r][c] == 'E') {
             return true;
         }
         return false;
+    }
+
+    private static char changeVisited(char c) {
+        if (c == 'S') {
+            return 'G';
+        }
+        if (c == 'G') {
+            return 'Y';
+        }
+        if (c == 'Y') {
+            return '*';
+        }
+        if (c == '$') {
+            return 'Y';
+        }
+        return '*';
+
     }
 }
