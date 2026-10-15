@@ -93,7 +93,6 @@ public class RecursiveTester {
             System.out.println("Passed test 6");
         }
 
-        p
 
         System.out.println("\nTest 7 - listMnemonics(String number) method");
         intExpected = 1;
