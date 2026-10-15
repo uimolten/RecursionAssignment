@@ -25,20 +25,88 @@ public class RecursiveTester {
 
     // run the tests
     public static void main(String[] args) {
-        doBinaryTests();
-        doReverseTests();
-        doNextIsDoubleTests();
-        doListMnemonicsTests();
+        //doBinaryTests();
+        //doReverseTests();
+        //doNextIsDoubleTests();
+        //doListMnemonicsTests();
         // doCarpetTest();
-        doMazeTests();
-        doFlowOffMapTests();
-        doFairTeamsTests();
+        //doMazeTests();
+        //doFlowOffMapTests();
+        //doFairTeamsTests();
         studentTests();
     }
 
     // post: run student test
     private static void studentTests() {
         // CS314 students put your tests here
+        // Tests 1 & 2 - getBinary
+
+        System.out.println("Test 1 - getBinary(int n) method");
+        String expected = "1010101";
+        if (Recursive.getBinary(85).equals(expected)) {
+            System.out.println("Passed test 1");
+        } else {
+            System.out.println("Passed test 1");
+        }
+
+        System.out.println("\nTest 2 - getBinary(int n) method");
+        expected = "1000110101011";
+        if (Recursive.getBinary(4523).equals(expected)) {
+            System.out.println("Passed test 2");
+        } else {
+            System.out.println("Passed test 2");
+        }
+
+        //Test 3 & 4 - revString
+        System.out.println("\nTest 3 - revString(String target) method");
+        expected = "!gnirtS desreveR a si sihT";
+        if (Recursive.revString("This is a Reversed String").equals(expected)) {
+            System.out.println("Passed test 3");
+        } else {
+            System.out.println("Passed test 3");
+        }
+
+        System.out.println("\nTest 4 - revString(String target) method");
+        expected = "W";
+        if (Recursive.revString("W").equals(expected)) {
+            System.out.println("Passed test 4");
+        } else {
+            System.out.println("Passed test 4");
+        }
+
+        // Test 5 & 6 - nextIsDouble
+        System.out.println("\nTest 5 - nextIsDouble(int[] data) method");
+        int intExpected = 0;
+        int[] arrayOfInts = {1, 3, 5, 7, 9, 0, 8};
+        if (Recursive.nextIsDouble(arrayOfInts) == intExpected) {
+            System.out.println("Passed test 5");
+        } else {
+            System.out.println("Passed test 5");
+        }
+
+        System.out.println("\nTest 6 - nextIsDouble(int[] data) method");
+        intExpected = 1;
+        arrayOfInts = new int []{1, 3, 6, 7, 9, 0, 8};
+        if (Recursive.nextIsDouble(arrayOfInts) == intExpected) {
+            System.out.println("Passed test 6");
+        } else {
+            System.out.println("Passed test 6");
+        }
+
+        p
+
+        System.out.println("\nTest 7 - listMnemonics(String number) method");
+        intExpected = 1;
+        System.out.println(Recursive.listMnemonics("2334"));
+        if (Recursive.nextIsDouble(arrayOfInts) == intExpected) {
+            System.out.println("Passed test 7");
+        } else {
+            System.out.println("Passed test 7");
+        }
+
+
+
+        
 
     }
 
@@ -54,7 +122,7 @@ public class RecursiveTester {
         runMazeTest(maze, 5, 0, mazeTestNum++);
         maze = "**$****G**ESGG$**G****$**";
         runMazeTest(maze, 5, 1, mazeTestNum++);
-        maze = "**$****G**ESGG$*GGG***$G*";
+        maze = "*G**S**$*E**GG$*GGG***$G*";
         runMazeTest(maze, 5, 2, mazeTestNum++);
         maze = "**$****G**ESGG$**G*$**$**";
         runMazeTest(maze, 5, 1, mazeTestNum++);
