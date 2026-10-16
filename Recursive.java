@@ -18,8 +18,6 @@
  *
  */
 
-//imports
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -51,16 +49,13 @@ public class Recursive {
                     + "getBinary. n cannot equal "
                     + "Integer.MIN_VALUE. n: " + n);
         }
-        StringBuilder sb = new StringBuilder();
         if (n < 0) {
-            sb.append("-" + getBinary(-n));
-            return sb.toString();
+            return "-" + getBinary(-n);
         }
         if (n < 2) {
-            sb.append(n);
-            return sb.toString();
+            return Integer.toString(n);
         }
-        return getBinary(n / 2) + (n % 2);
+        return getBinary(n / 2) + n % 2;
 
     }
 
@@ -111,6 +106,12 @@ public class Recursive {
         return doubleHelper(data, 0);
     }
 
+    /*
+     * Counts adjacent pairs beginning at index whose second value is
+     * exactly twice the first value.
+     * pre: data != null, 0 <= index <= data.length
+     * post: Returns the number of qualifying pairs from index onward.
+     */
     private static int doubleHelper(int[] data, int index) {
         if (index >= data.length - 1) {
             return 0;
@@ -157,7 +158,6 @@ public class Recursive {
     private static void recursiveMnemonics(ArrayList<String> mnemonics,
             String mnemonicSoFar, String digitsLeft) {
 
-        // CS314 students, complete this method
         if (digitsLeft.length() == 0) {
             mnemonics.add(mnemonicSoFar);
             return;
@@ -253,18 +253,18 @@ public class Recursive {
      */
     private static void drawSquares(Graphics g, int size, int limit,
             double x, double y) {
-        final int SQUARE_BOUND = 3; // We used 3 as our magic number because each square is divided into 3x3s, so we
-                                    // would need to divide size by 3
+        final int GRID_DIVISIONS = 3; // We used 3 as our magic number because each square is divided
+        // into 3x3s, so we would need to divide size by 3
         if (size > limit) {
-            for (int i = 0; i < SQUARE_BOUND; i++) {
-                for (int j = 0; j < SQUARE_BOUND; j++) {
-                    int newX = (int) x + (i * size / SQUARE_BOUND);
-                    int newY = (int) y + (j * size / SQUARE_BOUND);
+            for (int i = 0; i < GRID_DIVISIONS; i++) {
+                for (int j = 0; j < GRID_DIVISIONS; j++) {
+                    int newX = (int) x + (i * size / GRID_DIVISIONS);
+                    int newY = (int) y + (j * size / GRID_DIVISIONS);
                     if (i == 1 && j == 1) {
                         // at the center, fill rectangle
-                        g.fillRect(newX, newY, size / SQUARE_BOUND, size / SQUARE_BOUND);
+                        g.fillRect(newX, newY, size / GRID_DIVISIONS, size / GRID_DIVISIONS);
                     }
-                    drawSquares(g, size / 3, limit, (double) newX, (double) newY);
+                    drawSquares(g, size / GRID_DIVISIONS, limit, newX, newY);
                 }
             }
         }
@@ -330,6 +330,12 @@ public class Recursive {
         return currentStatus;
     }
 
+    /*
+     * Determines whether moving by the given row and column changes
+     * reaches a location with a lower elevation (safe direction).
+     * pre: map != null and the resulting location is within map
+     * post: Returns true if the resulting location has a lower elevation.
+     */
     private static boolean isDirectionSafe(int[][] map, int row, int col, int rowChange, int colChange) {
         int r = row + rowChange;
         int c = col + colChange;
@@ -396,10 +402,16 @@ public class Recursive {
      */
     public static int minDifference(int numTeams, int[] abilities) {
         int[][] teamStats = new int[2][numTeams];
-
+        // kick off the recursion
         return differenceHelper(0, numTeams, abilities, teamStats);
     }
 
+    /*
+     * Assigns each remaining ability score to every possible team and
+     * finds the minimum difference between the largest and smallest totals.
+     * pre: abilities != null, teamStats != null, 0 <= index <= abilities.length
+     * post: Returns the smallest possible difference for the remaining assignments.
+     */
     private static int differenceHelper(int index, int numTeams, int[] abilities, int[][] teamStats) {
         int bestDifference = Integer.MAX_VALUE;
         // base case
@@ -429,12 +441,15 @@ public class Recursive {
         }
 
         for (int i = 0; i < numTeams; i++) {
+            // add player to team
             teamStats[0][i] += abilities[index];
             teamStats[1][i]++;
             int result = differenceHelper(index + 1, numTeams, abilities, teamStats);
             if (result < bestDifference) {
                 bestDifference = result;
             }
+
+            // backtrack
             teamStats[0][i] -= abilities[index];
             teamStats[1][i]--;
         }
@@ -491,6 +506,12 @@ public class Recursive {
         return mazeHelper(rawMaze, sRow, sCol, containsExit, totalCoinCount, 0);
     }
 
+    /*
+     * Finds the best escape result reachable from the specified maze location.
+     * pre: rawMaze is rectangular and row and col identify a valid location
+     * post: Returns 2 for escape with every coin, 1 for escape without every
+     * coin, or 0 when escape is impossible.
+     */
     private static int mazeHelper(char[][] rawMaze, int r, int c, boolean containsExit, int totalCoinCount,
             int coinCount) {
         int bestPath = 0;
@@ -535,6 +556,11 @@ public class Recursive {
         return bestPath;
     }
 
+    /*
+     * Determines whether the neighboring maze location can be entered.
+     * pre: maze is a non-null rectangular matrix
+     * post: Returns true if the neighboring location is in bounds and traversable.
+     */
     private static boolean isMazeDirectionSafe(char[][] maze, int row, int col, int rowChange, int colChange) {
         int r = row + rowChange;
         int c = col + colChange;
@@ -547,6 +573,11 @@ public class Recursive {
         return false;
     }
 
+    /*
+     * Returns the marker used after visiting a maze location.
+     * pre: cell is a valid maze character
+     * post: Returns the next visited-state marker for cell.
+     */
     private static char changeVisited(char c) {
         if (c == 'S') {
             return 'G';

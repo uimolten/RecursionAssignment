@@ -1,17 +1,17 @@
 /*  Student information for assignment:
  *
- *  On <MY|OUR> honor, <NAME1> and <NAME2), this programming assignment is <MY|OUR> own work
- *  and <I|WE> have not provided this code to any other student.
+ *  On OUR honor, RIONN  and ETHAN , this programming assignment is OUR own work
+ *  and WE have not provided this code to any other student.
  *
- *  Number of slip days used:
+ *  Number of slip days used:0
  *
- *  Student 1 (Student whose Canvas account is being used)
- *  UTEID:
- *  email address:
+ *  Student 1 Rionn Tuscano
+ *  UTEID: rrt873
+ *  email address: rrt873@my.utexas.edu
  *
- *  Student 2
- *  UTEID:
- *  email address:
+ *  Student 2 Ethan Wooten
+ *  UTEID:emw3442 
+ *  email address:emw3442@my.utexas.edu
  *
  */
 
@@ -25,14 +25,14 @@ public class RecursiveTester {
 
     // run the tests
     public static void main(String[] args) {
-        //doBinaryTests();
-        //doReverseTests();
-        //doNextIsDoubleTests();
-        //doListMnemonicsTests();
+        // doBinaryTests();
+        // doReverseTests();
+        // doNextIsDoubleTests();
+        // doListMnemonicsTests();
         // doCarpetTest();
-        //doMazeTests();
-        //doFlowOffMapTests();
-        //doFairTeamsTests();
+        // doMazeTests();
+        // doFlowOffMapTests();
+        // doFairTeamsTests();
         studentTests();
     }
 
@@ -57,7 +57,7 @@ public class RecursiveTester {
             System.out.println("Passed test 2");
         }
 
-        //Test 3 & 4 - revString
+        // Test 3 & 4 - revString
         System.out.println("\nTest 3 - revString(String target) method");
         expected = "!gnirtS desreveR a si sihT";
         if (Recursive.revString("This is a Reversed String").equals(expected)) {
@@ -77,7 +77,7 @@ public class RecursiveTester {
         // Test 5 & 6 - nextIsDouble
         System.out.println("\nTest 5 - nextIsDouble(int[] data) method");
         int intExpected = 0;
-        int[] arrayOfInts = {1, 3, 5, 7, 9, 0, 8};
+        int[] arrayOfInts = { 1, 3, 5, 7, 9, 0, 8 };
         if (Recursive.nextIsDouble(arrayOfInts) == intExpected) {
             System.out.println("Passed test 5");
         } else {
@@ -86,18 +86,18 @@ public class RecursiveTester {
 
         System.out.println("\nTest 6 - nextIsDouble(int[] data) method");
         intExpected = 1;
-        arrayOfInts = new int []{1, 3, 6, 7, 9, 0, 8};
+        arrayOfInts = new int[] { 1, 3, 6, 7, 9, 0, 8 };
         if (Recursive.nextIsDouble(arrayOfInts) == intExpected) {
             System.out.println("Passed test 6");
         } else {
             System.out.println("Passed test 6");
         }
 
-        //tests 7 & 8 - listMnemonics
+        // tests 7 & 8 - listMnemonics
         System.out.println("\nTest 7 - listMnemonics(String number) method");
         ArrayList<String> expectedMnemonics = new ArrayList<>();
-        String[] combinations = {"AD", "AE", "AF", "BD", "BE", "BF", "CD", "CE", "CF"};
-        for(String c : combinations) {
+        String[] combinations = { "AD", "AE", "AF", "BD", "BE", "BF", "CD", "CE", "CF" };
+        for (String c : combinations) {
             expectedMnemonics.add(c);
         }
         ArrayList<String> actualMnemonics = Recursive.listMnemonics("23");
@@ -109,9 +109,9 @@ public class RecursiveTester {
 
         System.out.println("\nTest 8 - listMnemonics(String number) method");
         expectedMnemonics = new ArrayList<>();
-        combinations = new String[] {"PW", "PX", "PY", "PZ", "QW", "QX", "QY", "QZ",
-                "RW", "RX", "RY", "RZ", "SW", "SX", "SY", "SZ"};
-        for(String c : combinations) {
+        combinations = new String[] { "PW", "PX", "PY", "PZ", "QW", "QX", "QY", "QZ",
+                "RW", "RX", "RY", "RZ", "SW", "SX", "SY", "SZ" };
+        for (String c : combinations) {
             expectedMnemonics.add(c);
         }
         actualMnemonics = Recursive.listMnemonics("79");
@@ -142,9 +142,9 @@ public class RecursiveTester {
 
         System.out.println("\nTest 10 - canFlowOffMap(int[][] map, int row, int col)");
         studentWorld = new int[][] {
-                {5, 5 ,5},
-                {5, 0, 5},
-                {5, 5, 5}
+                { 5, 5, 5 },
+                { 5, 0, 5 },
+                { 5, 5, 5 }
         };
 
         if (!Recursive.canFlowOffMap(studentWorld, 1, 1)) {
@@ -153,11 +153,55 @@ public class RecursiveTester {
             System.out.println("Failed test 10");
         }
 
-        //TODO: Rion you can do test cases for fair teams and maze solver (I dont think we check
-        // sierpenski
+        // Tests 11 & 12 - minDifference
+        System.out.println("\nTest 11 - minDifference(int numTeams, int[] abilities) method");
+        int[] abilities = { 8, 8, 4, 4 };
+        intExpected = 0;
+        int actual = Recursive.minDifference(2, abilities);
+        if (actual == intExpected) {
+            System.out.println("Passed test 11");
+        } else {
+            System.out.println("Failed test 11");
+            System.out.println("Expected result: " + intExpected);
+            System.out.println("Actual result  : " + actual);
+        }
 
+        System.out.println("\nTest 12 - minDifference(int numTeams, int[] abilities) method");
+        abilities = new int[] { 9, 7, 5, 3 };
+        intExpected = 2;
+        actual = Recursive.minDifference(3, abilities);
+        if (actual == intExpected) {
+            System.out.println("Passed test 12");
+        } else {
+            System.out.println("Failed test 12");
+            System.out.println("Expected result: " + intExpected);
+            System.out.println("Actual result  : " + actual);
+        }
 
-        
+        // Tests 13 & 14 - canEscapeMaze
+        System.out.println("\nTest 13 - canEscapeMaze(char[][] rawMaze) method");
+        char[][] studentMaze = makeMaze("SG**$**GE", 3);
+        intExpected = 2;
+        actual = Recursive.canEscapeMaze(studentMaze);
+        if (actual == intExpected) {
+            System.out.println("Passed test 13");
+        } else {
+            System.out.println("Failed test 13");
+            System.out.println("Expected result: " + intExpected);
+            System.out.println("Actual result  : " + actual);
+        }
+
+        System.out.println("\nTest 14 - canEscapeMaze(char[][] rawMaze) method");
+        studentMaze = makeMaze("SGE*****$***", 3);
+        intExpected = 1;
+        actual = Recursive.canEscapeMaze(studentMaze);
+        if (actual == intExpected) {
+            System.out.println("Passed test 14");
+        } else {
+            System.out.println("Failed test 14");
+            System.out.println("Expected result: " + intExpected);
+            System.out.println("Actual result  : " + actual);
+        }
 
     }
 
