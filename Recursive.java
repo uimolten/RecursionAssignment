@@ -82,7 +82,8 @@ public class Recursive {
         if (length == 1) {
             return stringToRev;
         }
-        return stringToRev.substring(length - 1) + revString(stringToRev.substring(0, length - 1));
+        return stringToRev.substring(length - 1)
+                + revString(stringToRev.substring(0, length - 1));
     }
 
     /**
@@ -165,7 +166,8 @@ public class Recursive {
         String temp = digitLetters(digitsLeft.charAt(0));
 
         for (int i = 0; i < temp.length(); i++) {
-            recursiveMnemonics(mnemonics, mnemonicSoFar + temp.charAt(i), digitsLeft.substring(1));
+            recursiveMnemonics(mnemonics, mnemonicSoFar + temp.charAt(i),
+                    digitsLeft.substring(1));
         }
     }
 
@@ -253,7 +255,8 @@ public class Recursive {
      */
     private static void drawSquares(Graphics g, int size, int limit,
             double x, double y) {
-        final int GRID_DIVISIONS = 3; // We used 3 as our magic number because each square is divided
+        // We used 3 as our magic number because each square is divided
+        final int GRID_DIVISIONS = 3;
         // into 3x3s, so we would need to divide size by 3
         if (size > limit) {
             for (int i = 0; i < GRID_DIVISIONS; i++) {
@@ -262,7 +265,8 @@ public class Recursive {
                     int newY = (int) y + (j * size / GRID_DIVISIONS);
                     if (i == 1 && j == 1) {
                         // at the center, fill rectangle
-                        g.fillRect(newX, newY, size / GRID_DIVISIONS, size / GRID_DIVISIONS);
+                        g.fillRect(newX, newY, size / GRID_DIVISIONS,
+                                size / GRID_DIVISIONS);
                     }
                     drawSquares(g, size / GRID_DIVISIONS, limit, newX, newY);
                 }
@@ -336,7 +340,8 @@ public class Recursive {
      * pre: map != null and the resulting location is within map
      * post: Returns true if the resulting location has a lower elevation.
      */
-    private static boolean isDirectionSafe(int[][] map, int row, int col, int rowChange, int colChange) {
+    private static boolean isDirectionSafe(int[][] map, int row, int col,
+                                           int rowChange, int colChange) {
         int r = row + rowChange;
         int c = col + colChange;
         if (map[row][col] > map[r][c]) {
@@ -412,7 +417,8 @@ public class Recursive {
      * pre: abilities != null, teamStats != null, 0 <= index <= abilities.length
      * post: Returns the smallest possible difference for the remaining assignments.
      */
-    private static int differenceHelper(int index, int numTeams, int[] abilities, int[][] teamStats) {
+    private static int differenceHelper(int index, int numTeams, int[] abilities,
+                                        int[][] teamStats) {
         int bestDifference = Integer.MAX_VALUE;
         // base case
         if (index == abilities.length) {
@@ -512,8 +518,8 @@ public class Recursive {
      * post: Returns 2 for escape with every coin, 1 for escape without every
      * coin, or 0 when escape is impossible.
      */
-    private static int mazeHelper(char[][] rawMaze, int r, int c, boolean containsExit, int totalCoinCount,
-            int coinCount) {
+    private static int mazeHelper(char[][] rawMaze, int r, int c, boolean containsExit,
+                                  int totalCoinCount, int coinCount) {
         int bestPath = 0;
         if (rawMaze[r][c] == 'E') {
             bestPath = totalCoinCount == coinCount ? 2 : 1;
@@ -531,25 +537,33 @@ public class Recursive {
         if (isMazeDirectionSafe(rawMaze, r, c, 1, 0)) {
             char org = rawMaze[r][c];
             rawMaze[r][c] = changeVisited(org);
-            bestPath = Math.max(mazeHelper(rawMaze, r + 1, c, containsExit, totalCoinCount, coinCount), bestPath);
+            bestPath = Math.max(
+                    mazeHelper(rawMaze, r + 1, c, containsExit, totalCoinCount, coinCount),
+                    bestPath);
             rawMaze[r][c] = org;
         }
         if (isMazeDirectionSafe(rawMaze, r, c, -1, 0)) {
             char org = rawMaze[r][c];
             rawMaze[r][c] = changeVisited(org);
-            bestPath = Math.max(mazeHelper(rawMaze, r - 1, c, containsExit, totalCoinCount, coinCount), bestPath);
+            bestPath = Math.max(
+                    mazeHelper(rawMaze, r - 1, c, containsExit, totalCoinCount, coinCount),
+                    bestPath);
             rawMaze[r][c] = org;
         }
         if (isMazeDirectionSafe(rawMaze, r, c, 0, 1)) {
             char org = rawMaze[r][c];
             rawMaze[r][c] = changeVisited(org);
-            bestPath = Math.max(mazeHelper(rawMaze, r, c + 1, containsExit, totalCoinCount, coinCount), bestPath);
+            bestPath = Math.max(
+                    mazeHelper(rawMaze, r, c + 1, containsExit, totalCoinCount, coinCount),
+                    bestPath);
             rawMaze[r][c] = org;
         }
         if (isMazeDirectionSafe(rawMaze, r, c, 0, -1)) {
             char org = rawMaze[r][c];
             rawMaze[r][c] = changeVisited(org);
-            bestPath = Math.max(mazeHelper(rawMaze, r, c - 1, containsExit, totalCoinCount, coinCount), bestPath);
+            bestPath = Math.max(
+                    mazeHelper(rawMaze, r, c - 1, containsExit, totalCoinCount, coinCount),
+                    bestPath);
             rawMaze[r][c] = org;
         }
 
@@ -561,7 +575,8 @@ public class Recursive {
      * pre: maze is a non-null rectangular matrix
      * post: Returns true if the neighboring location is in bounds and traversable.
      */
-    private static boolean isMazeDirectionSafe(char[][] maze, int row, int col, int rowChange, int colChange) {
+    private static boolean isMazeDirectionSafe(char[][] maze, int row, int col, int rowChange,
+                                               int colChange) {
         int r = row + rowChange;
         int c = col + colChange;
         if (r >= maze.length || c >= maze[0].length || r < 0 || c < 0) {
